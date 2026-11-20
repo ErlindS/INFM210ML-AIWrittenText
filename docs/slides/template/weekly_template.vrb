@@ -1,0 +1,17 @@
+\frametitle{Pipeline}\framesubtitle {Code snippets with \texttt {[fragile]}}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.55\textwidth}
+\begin{lstlisting}[language=Python]
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import LogisticRegression
+
+# fit baseline
+vec = TfidfVectorizer(ngram_range=(1, 2))
+X = vec.fit_transform(df["text"])
+clf = LogisticRegression().fit(X, df["generated"])
+\end{lstlisting}
+    \column{0.4\textwidth}
+      \begin{exampleblock}{Note}
+        Use \texttt{[fragile]} on every frame that contains code.
+      \end{exampleblock}
+  \end{columns}
