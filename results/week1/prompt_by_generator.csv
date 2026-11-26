@@ -1,0 +1,17 @@
+prompt_name,claude,cohere,falcon,gpt,human,llama2,mistral,palm,All
+"""A Cowboy Who Rode the Waves""",141,50,46,47,1372,120,70,50,1896
+Car-free cities,97,49,156,362,1982,398,225,761,4030
+Cell phones at school,132,0,41,49,1656,123,118,0,2119
+Community service,118,0,30,64,1542,149,189,0,2092
+Distance learning,121,0,219,830,2155,732,1492,0,5549
+Does the electoral college work?,130,50,25,353,2104,233,205,721,3821
+Driverless cars,155,50,27,11,1886,61,10,50,2250
+Exploring Venus,138,50,33,4,1862,33,6,50,2176
+Facial action coding system,148,50,101,82,2167,293,193,50,3084
+Grades for extracurricular activities,126,0,75,23,1626,182,84,0,2116
+Mandatory extracurricular activities,147,0,37,266,1670,396,560,1,3077
+Phones and driving,139,0,108,8,1151,136,24,0,1566
+Seeking multiple opinions,150,1,66,853,1552,844,1709,0,5175
+Summer projects,117,0,62,169,1750,254,349,0,2701
+The Face on Mars,141,50,29,0,1583,38,2,50,1893
+All,2000,350,1055,3121,26058,3992,5236,1733,43545

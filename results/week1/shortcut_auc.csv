@@ -1,0 +1,8 @@
+split,length,prompt,leading space (raw),leading space (cleaned)
+random,0.716,0.715,0.608,0.5
+logo_claude,0.752,0.492,0.566,0.5
+logo_falcon,0.711,0.598,0.5,0.5
+logo_gpt,0.438,0.801,0.5,0.5
+logo_llama2,0.747,0.714,0.553,0.5
+logo_mistral,0.712,0.776,0.761,0.5
+logo_palm,0.628,0.61,0.5,0.5
