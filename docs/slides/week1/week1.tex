@@ -311,49 +311,59 @@
 \end{frame}
 
 % =====================================================================
-%  3 · Splits & metrics
+%  3 · Generators & splits   (Zahlen: src/splits.py, results/week1/)
 % =====================================================================
-\kicker{Splits \& metrics}
-\begin{frame}{Splits and metrics}
+\kicker{Splits}
+\begin{frame}{Generators, random split and LOGO folds}
   \begin{columns}[T,onlytextwidth]
-    \column{0.5\textwidth}
-      \small
-      \textbf{Random split}
-      \begin{itemize}
-        \item Train / val / test: 70 / 10 / 20\,\%
-        \item Test essays: 5{,}212 human, 3{,}497 AI
-      \end{itemize}
-      \vspace{1mm}
-      \textbf{Leave-one-generator-out}
-      \begin{itemize}
-        \item Folds: 6 (generators with $\geq$ 1{,}000 essays)
-        \item Held-out generator: not in train / val
-        \item Human test essays: same as random split
-      \end{itemize}
-    \column{0.46\textwidth}
+    \column{0.42\textwidth}
       \centering\small
       \renewcommand{\arraystretch}{1.15}
-      \begin{tabular}{@{}lr@{}}
+      \begin{tabular}{@{}lrr@{}}
         \toprule
-        \textbf{Held-out generator} & \textbf{AI essays in test} \\
+        \textbf{Generator} & \textbf{Essays} & \textbf{In test} \\
         \midrule
-        Claude  & 400 \\
-        Falcon  & 211 \\
-        GPT     & 624 \\
-        Llama 2 & 798 \\
-        Mistral & 1{,}047 \\
-        PaLM    & 347 \\
+        Mistral 7B        & 5{,}236 & 1{,}047 \\
+        Llama 2 (7B, 70B) & 3{,}992 & 798 \\
+        GPT (3.5, 4)      & 3{,}121 & 624 \\
+        Claude            & 2{,}000 & 400 \\
+        PaLM              & 1{,}733 & 347 \\
+        Falcon 180B       & 1{,}055 & 211 \\
+        \rowcolor{hkaStripe}
+        Cohere            & 350     & \muted{train only} \\
+        \midrule
+        Human             & 26{,}058 & 5{,}212 \\
         \bottomrule
       \end{tabular}
-
-      \vspace{3mm}
-      \raggedright
-      \textbf{Metrics:} ROC-AUC, F1
+    \column{0.54\textwidth}
+      \small
+      \begin{itemize}
+        \item \textbf{Generator = model family:} variants merged, so a held-out model is truly unseen
+        \item \textbf{Selection:} $\geq$\,1{,}000 essays $\Rightarrow$ \highlight{6 LOGO folds}; Cohere stays in training only
+        \item \textbf{Random split:} 70/10/20 train/val/test, stratified by generator, seed 42
+        \item \textbf{LOGO fold $G$:} train/val = random train/val without $G$; test = random test, human $+$ $G$ only
+        \item \textbf{Paired comparison:} same test essays in both settings, only difference is whether $G$ was seen
+      \end{itemize}
   \end{columns}
 \end{frame}
 
 % =====================================================================
-%  4 · Next steps & open questions
+%  4 · Metrics   (festgelegt in src/metrics.py)
+% =====================================================================
+\kicker{Metrics}
+\begin{frame}{Evaluation metrics}{Fixed before the first model is trained}
+  \begin{kvtable}
+    \kv{Positive class}{AI-generated (\texttt{label} = 1)}
+    \kvred{Main}{\textbf{ROC-AUC}: threshold-free, independent of the class ratio (varies per fold), Kaggle metric}
+    \kv{Second}{\textbf{F1} (AI class): threshold = max.\ F1 on the validation split, never tuned on test}
+    \kv{Additional}{\textbf{TPR @ 1\,\% FPR}: AI essays caught when $\leq$\,1\,\% of human essays are falsely flagged}
+    \kv{Not used}{Accuracy: always predicting ``human'' already scores 96\,\% on the Falcon fold}
+    \kv{Reported on}{Test part of the random split and of each LOGO fold; 95\,\% bootstrap CI for ROC-AUC}
+  \end{kvtable}
+\end{frame}
+
+% =====================================================================
+%  5 · Next steps & open questions
 % =====================================================================
 \kicker{Next week}
 \begin{frame}{Next steps and open questions}
