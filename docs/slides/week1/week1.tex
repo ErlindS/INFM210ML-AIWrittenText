@@ -38,14 +38,12 @@
 % ---------------------------------------------------------------------
 \newcommand{\course}{AI Lab}
 \newcommand{\week}{Week 1}
-\newcommand{\groupname}{Group GlEr}
 \newcommand{\projecttopic}{Can we detect AI-written text?}
 
 \title{\course}
 \subtitle{\projecttopic}
-\author{Gleb Janickij \and Erlind S.}
+\author{Gleb Janickij \and Erlind Sejdiu}
 \institute{\groupname}
-\date{Check-in \textperiodcentered{} \week{} \textperiodcentered{} 27.11.2026}
 
 % Fußzeile links (wird auf jeder Inhaltsfolie gezeigt)
 \newcommand{\footertext}{\course{} \textperiodcentered{} \groupname{} \textperiodcentered{} \week}
@@ -173,9 +171,7 @@
   {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle\par}
   \vspace{4mm}
   {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}
-  \vspace{5mm}
-  \hkalogo\par
-  \vspace{5mm}
+  \vspace{8mm}
   {\normalsize\color{black}\insertauthor\par}
   \vspace{1.5mm}
   {\small\color{hkaGray}\insertinstitute\par}
@@ -206,9 +202,10 @@
 %    \kv{Dataset}{...}
 %    \kvred{Experiment 1}{...}   % rote Beschriftung
 %  \end{kvtable}
-\newenvironment{kvtable}{%
+%  Optional: Zeilenabstand, z. B. \begin{kvtable}[1.25] bei vielen Zeilen
+\newenvironment{kvtable}[1][1.6]{%
   \small
-  \renewcommand{\arraystretch}{1.6}%
+  \renewcommand{\arraystretch}{#1}%
   \noindent\tabularx{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.2\textwidth}X@{}}
   \arrayrulecolor{hkaRule}\hline
 }{%
@@ -220,6 +217,17 @@
 % --- Kleine Helfer --------------------------------------------------
 \newcommand{\muted}[1]{{\color{hkaGray}#1}}
 \newcommand{\highlight}[1]{{\color{hkaBlue}\bfseries#1}}
+% Agenda-Zeile (Outline-Folie): \agendaitem{01}{Titel}{Unterzeile}
+\newcommand{\agendarule}{{\color{hkaRule}\rule{\linewidth}{0.4pt}}\par}
+\newcommand{\agendaitem}[3]{%
+  \vspace{2.5mm}%
+  \noindent\begin{minipage}[c]{16mm}
+    {\fontsize{24}{24}\selectfont\bfseries\color{hkaBlue}#1}
+  \end{minipage}%
+  \begin{minipage}[c]{\dimexpr\linewidth-16mm\relax}
+    {\large\bfseries #2}\par\vspace{1mm}{\footnotesize\muted{#3}}
+  \end{minipage}\par
+  \vspace{2.5mm}\agendarule}
 % Großer Kennzahl-Block: \metric{0.93}{ROC-AUC (val)}
 \newcommand{\metric}[2]{%
   \begin{minipage}[t]{\linewidth}\centering
@@ -263,15 +271,13 @@
 % =====================================================================
 %  0 · Research question & data
 % =====================================================================
+\kicker{Agenda}
 \begin{frame}{Outline}
-  \begin{columns}[T,onlytextwidth]
-    \column{0.48\textwidth}
-      \begin{itemize}\footnotesize\setlength{\itemsep}{0mm}
-        \item Presentation of current findings
-        \item Project-structure
-        \item Code analysis
-      \end{itemize}
-  \end{columns}
+  \vspace{-1mm}
+  \agendarule
+  \agendaitem{01}{Current findings}{}
+  \agendaitem{02}{Project structure}{}
+  \agendaitem{03}{Code analysis}{}
 \end{frame}
 
 
@@ -283,7 +289,7 @@
   \begin{columns}[T,onlytextwidth]
     \column{0.48\textwidth}
       \small
-      Können KI generiete Texte von unbekannten und nicht gelernten Modellen erkannt werden?
+      Können KI generiete Texte von unbekannten Modellen als KI Texte erkannt werden?
 
       \vspace{1mm}
       \begin{itemize}\footnotesize\setlength{\itemsep}{0mm}
@@ -366,7 +372,8 @@
 % =====================================================================
 \kicker{Metrics}
 \begin{frame}{Evaluation metrics}{Fixed before the first model is trained}
-  \begin{kvtable}
+  \vspace{-2mm}
+  \begin{kvtable}[1.12]
     \kv{Positive class}{AI-generated (\texttt{label} = 1)}
     \kvred{Main}{\textbf{ROC-AUC}: threshold-free, independent of the class ratio (varies per fold), Kaggle metric}
     \kv{Second}{\textbf{F1} (AI class): threshold = max.\ F1 on the validation split, never tuned on test}
